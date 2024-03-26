@@ -11,19 +11,17 @@ class WeatherData:
     main: str
     description: str
     icon: str
-    temperatur: float
+    temperature: float
 
 def get_lat_lon(city_name, state_code, country_code, API_key):
-    resp = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q=
-                        {city_name},{state_code},{country_code}&appid={API_key}").json()
+    resp = requests.get(f"http://api.openweathermap.org/geo/1.0/direct?q={city_name},{state_code},{country_code}&appid={API_key}").json()
     data = resp[0]
     lat, lon = data.get("lat"), data.get("lon")
     return lat, lon
     print(resp)
 
 def get_current_weather(lat, lon, API_key):
-    resp = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat=
-                        {lat}&lon={lon}&appid={API_key}&units=metric").json()
+    resp = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}&units=metric").json()
     data = WeatherData(
         main=resp.get("weather")[0].get("main"),
         description=resp.get("weather")[0].get("description"),
